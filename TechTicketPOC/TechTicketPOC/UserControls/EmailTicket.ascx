@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmailTicket.ascx.cs" Inherits="TechTicketPOC.EmailTicket" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmailTicket.ascx.cs" Inherits="TechTicketPOC.UserControls.EmailTicket" %>
 
 <ext:XScript runat="server" ID="XScript">
     <script>

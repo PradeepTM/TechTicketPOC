@@ -28,6 +28,6 @@ namespace TechTicketPOC {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TechTicketPOC.EmailTicket EmailTicket;
+        protected global::TechTicketPOC.UserControls.EmailTicket EmailTicket;
     }
 }

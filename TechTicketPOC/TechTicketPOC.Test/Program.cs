@@ -18,10 +18,33 @@ namespace TechTicketPOC.Test
             //var divisions = DivisionDAL.GetDivisions();
             //var requests = RequestDAL.GetRequests(1);
             //AddEmailTemplates(37, "Raiser-Collision", "Raiser-Collision email template", "samik.dam@jamesriverins.com");
-            AddEmailTemplates(34, "Core-Spit", "Core-Spit email template", "Jeffery.Stoner@jamesriverins.com");
+            //AddEmailTemplates(34, "Core-Spit", "Core-Spit email template", "Jeffery.Stoner@jamesriverins.com");
             //AddEmailTemplates(38, "Raiser-PIP", "Raiset-PIP email template", "Jason.Couch@jamesriverins.com");
             //var restult = EmailTemplateDAL.GetEmailTemplate(33);
+            AddCheckBoxField(1);
             Console.ReadLine();
+        }
+
+        private static void AddCheckBoxField(int emailTemplateId)
+        {
+            var checkBoxField = new EmailTemplateField
+            {
+                FieldName = "IsClaimsApproved",
+                DisplayName = "Is claims approved",
+                DataType = "Bool",
+                FieldOrder = 1,
+                FieldType = "CheckBox",
+                IsAllowBlank = false,
+                EmailTemplateId = emailTemplateId
+            };
+
+            using (var dbSession = DocumentStoreHolder.Store.OpenSession())
+            {
+                var emailTemplate = dbSession.Load<EmailTemplate>(emailTemplateId);
+                dbSession.Store(checkBoxField);
+                emailTemplate.TemplateFieldIds.Add(checkBoxField.Id);
+                dbSession.SaveChanges();
+            }
         }
 
         private static void ConfigureAutomapper()

@@ -13,7 +13,7 @@ using static TechTicketPOC.AppCode.Constants.ControlTypes;
 using static TechTicketPOC.Common.Constants.SessionKeys;
 using static TechTicketPOC.Common.SessionWrapper;
 
-namespace TechTicketPOC
+namespace TechTicketPOC.UserControls
 {
     public partial class EmailTicket : System.Web.UI.UserControl
     {
@@ -56,7 +56,7 @@ namespace TechTicketPOC
                 return X.GetCmp<ComboBox>(nameof(cboxRequest)).SelectedItem.Text;
             }
 
-        } 
+        }
 
         #endregion
 
@@ -111,7 +111,7 @@ namespace TechTicketPOC
                 GenerateEmailTemplate(RequestId.Value);
             }
 
-        } 
+        }
 
         #endregion
 
@@ -212,7 +212,8 @@ namespace TechTicketPOC
                             ID = field.FieldName,
                             FieldLabel = field.DisplayName,
                             TabIndex = (short)field.FieldOrder,
-                            AllowBlank = field.IsAllowBlank
+                            AllowBlank = field.IsAllowBlank,
+                            Text = field.DefaultValue
                         };
 
                         if (!string.IsNullOrEmpty(field.FormatRegEx))
@@ -227,7 +228,8 @@ namespace TechTicketPOC
                             ID = field.FieldName,
                             FieldLabel = field.DisplayName,
                             TabIndex = (short)field.FieldOrder,
-                            AllowBlank = field.IsAllowBlank
+                            AllowBlank = field.IsAllowBlank,
+                            Text = field.DefaultValue
                         };
 
                         if (!string.IsNullOrEmpty(field.FormatRegEx))
@@ -253,6 +255,17 @@ namespace TechTicketPOC
                     }
 
                     return comboBox;
+
+                case CHECK_BOX:
+                    var checkbox = new Checkbox()
+                    {
+                        ID = field.FieldName,
+                        FieldLabel = field.DisplayName,
+                        TabIndex = (short)field.FieldOrder,
+                    };
+
+                    return checkbox;
+
                 default:
                     return null;
 
@@ -291,6 +304,10 @@ namespace TechTicketPOC
 
                     if (!string.IsNullOrEmpty(selectedValue) && !selectedValue.StartsWith("Select ", StringComparison.InvariantCultureIgnoreCase))
                         return Tuple.Create(field.DisplayName, selectedValue);
+                }
+                else if (field.FieldType == CHECK_BOX)
+                {
+                    return Tuple.Create(field.DisplayName, X.GetCmp<Checkbox>(field.FieldName).Checked ? "Yes" : "No");
                 }
 
                 return Tuple.Create(field.DisplayName, string.Empty);

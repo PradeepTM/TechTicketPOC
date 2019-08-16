@@ -97,7 +97,7 @@
     <Content Include="App_Readme\Ext.NET.Utilities\README.txt" />
     <Content Include="App_Readme\Transformer.NET\LICENSE.txt" />
     <Content Include="App_Readme\Transformer.NET\README.txt" />
-    <Content Include="EmailTicket.ascx" />
+    <Content Include="UserControls\EmailTicket.ascx" />
     <Content Include="Ext.NET.Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="TechRequest.aspx" />
@@ -107,11 +107,11 @@
   <ItemGroup>
     <Compile Include="AppCode\Bootstrap.cs" />
     <Compile Include="AppCode\Constants\ControlTypes.cs" />
-    <Compile Include="EmailTicket.ascx.cs">
+    <Compile Include="UserControls\EmailTicket.ascx.cs">
       <DependentUpon>EmailTicket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EmailTicket.ascx.designer.cs">
+    <Compile Include="UserControls\EmailTicket.ascx.designer.cs">
       <DependentUpon>EmailTicket.ascx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

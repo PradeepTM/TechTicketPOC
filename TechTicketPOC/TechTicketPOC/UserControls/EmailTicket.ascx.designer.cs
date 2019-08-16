@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TechTicketPOC {
+namespace TechTicketPOC.UserControls {
     
     
     public partial class EmailTicket {
