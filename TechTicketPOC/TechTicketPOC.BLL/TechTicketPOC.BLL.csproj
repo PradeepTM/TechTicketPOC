@@ -31,8 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,10 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="RequestBLL.cs" />
+    <Compile Include="EmailTemplateBLL.cs" />
+    <Compile Include="DivisionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TechTicketPOC.Common\TechTicketPOC.Common.csproj">
+      <Project>{305cd289-341e-4ca6-b2a7-f935a35457ea}</Project>
+      <Name>TechTicketPOC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TechTicketPOC.DAL\TechTicketPOC.DAL.csproj">
       <Project>{bdea1844-e9fe-4866-bf4e-4a61ef739d0d}</Project>
       <Name>TechTicketPOC.DAL</Name>
@@ -53,6 +66,9 @@
       <Project>{7fa6abda-dff4-477c-bb0c-2807957aad54}</Project>
       <Name>TechTicketPOC.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

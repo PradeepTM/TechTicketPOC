@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC", "TechTicketPOC\TechTicketPOC.csproj", "{2570329B-8AA0-4EBC-BBC8-5D32993ACED8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC.Entities", "TechTicketPOC.Entities\TechTicketPOC.Entities.csproj", "{7FA6ABDA-DFF4-477C-BB0C-2807957AAD54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC.DAL", "TechTicketPOC.DAL\TechTicketPOC.DAL.csproj", "{BDEA1844-E9FE-4866-BF4E-4A61EF739D0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC.BLL", "TechTicketPOC.BLL\TechTicketPOC.BLL.csproj", "{564DE478-9557-4BC2-9879-FAC71759510A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC.Test", "TechTicketPOC.Test\TechTicketPOC.Test.csproj", "{FCD45277-8958-42FD-8143-9107ADB5DB85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC", "TechTicketPOC\TechTicketPOC.csproj", "{F6BAD279-DBA9-457B-AF97-DA314414540A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTicketPOC.Common", "TechTicketPOC.Common\TechTicketPOC.Common.csproj", "{305CD289-341E-4CA6-B2A7-F935A35457EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2570329B-8AA0-4EBC-BBC8-5D32993ACED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2570329B-8AA0-4EBC-BBC8-5D32993ACED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2570329B-8AA0-4EBC-BBC8-5D32993ACED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2570329B-8AA0-4EBC-BBC8-5D32993ACED8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FA6ABDA-DFF4-477C-BB0C-2807957AAD54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FA6ABDA-DFF4-477C-BB0C-2807957AAD54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA6ABDA-DFF4-477C-BB0C-2807957AAD54}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +33,18 @@ Global
 		{564DE478-9557-4BC2-9879-FAC71759510A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{564DE478-9557-4BC2-9879-FAC71759510A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{564DE478-9557-4BC2-9879-FAC71759510A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD45277-8958-42FD-8143-9107ADB5DB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD45277-8958-42FD-8143-9107ADB5DB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD45277-8958-42FD-8143-9107ADB5DB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD45277-8958-42FD-8143-9107ADB5DB85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6BAD279-DBA9-457B-AF97-DA314414540A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6BAD279-DBA9-457B-AF97-DA314414540A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6BAD279-DBA9-457B-AF97-DA314414540A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BAD279-DBA9-457B-AF97-DA314414540A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305CD289-341E-4CA6-B2A7-F935A35457EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305CD289-341E-4CA6-B2A7-F935A35457EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305CD289-341E-4CA6-B2A7-F935A35457EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305CD289-341E-4CA6-B2A7-F935A35457EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

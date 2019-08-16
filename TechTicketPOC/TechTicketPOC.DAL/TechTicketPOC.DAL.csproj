@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions, Version=3.5.9.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.Client.3.5.9\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -40,6 +43,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,17 +55,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Automapping\RequestProfile.cs" />
+    <Compile Include="Automapping\DivisionProfile.cs" />
+    <Compile Include="Automapping\EmailTemplateProfile.cs" />
+    <Compile Include="DivisionDAL.cs" />
+    <Compile Include="DocumentStoreHolder.cs" />
+    <Compile Include="EmailTemplateDAL.cs" />
+    <Compile Include="POCOEntities\Division.cs" />
+    <Compile Include="POCOEntities\EmailTransctionLog.cs" />
+    <Compile Include="POCOEntities\FieldOption.cs" />
+    <Compile Include="POCOEntities\EmailTemplate.cs" />
+    <Compile Include="POCOEntities\Request.cs" />
+    <Compile Include="POCOEntities\EmailTemplateField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TechTicketPOC.Common\TechTicketPOC.Common.csproj">
+      <Project>{305cd289-341e-4ca6-b2a7-f935a35457ea}</Project>
+      <Name>TechTicketPOC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TechTicketPOC.Entities\TechTicketPOC.Entities.csproj">
       <Project>{7fa6abda-dff4-477c-bb0c-2807957aad54}</Project>
       <Name>TechTicketPOC.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
