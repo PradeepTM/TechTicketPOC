@@ -15,7 +15,7 @@ namespace TechTicketPOC.BLL
         {
             var divisions = DivisionDAL.GetDivisions();
 
-            if (divisions == null) return null;
+            if (divisions == null) return new List<DivisionDTO>();
 
             return Map<List<DivisionDTO>>(divisions);
         }

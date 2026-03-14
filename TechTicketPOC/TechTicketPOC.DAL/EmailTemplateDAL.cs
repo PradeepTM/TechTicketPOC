@@ -26,8 +26,7 @@ namespace TechTicketPOC.DAL
                     if (emailTemplate == null)
                         return null;
 
-                    var templateFields = dbSession.Include<EmailTemplateField>(et => et.FieldOptionsIds)
-                                                  .Load<EmailTemplateField>(emailTemplate.TemplateFieldIds.Cast<ValueType>())
+                    var templateFields = dbSession.Load<EmailTemplateField>(emailTemplate.TemplateFieldIds.Cast<ValueType>())
                                                   .OrderBy(tf => tf.FieldOrder)
                                                   .ToList();
 
@@ -37,21 +36,37 @@ namespace TechTicketPOC.DAL
                     {
                         emailTemplateDTO.Fields = new List<EmailTemplateFieldDTO>();
 
-                        templateFields.ForEach((tf) => 
+                        // Collect all field option IDs up front and load them in a single batch
+                        // to avoid N+1 queries (one per template field).
+                        var allFieldOptionIds = templateFields
+                            .Where(tf => tf.FieldOptionsIds != null && tf.FieldOptionsIds.Count > 0)
+                            .SelectMany(tf => tf.FieldOptionsIds)
+                            .Distinct()
+                            .Cast<ValueType>()
+                            .ToList();
+
+                        var allFieldOptionsMap = allFieldOptionIds.Count > 0
+                            ? dbSession.Load<FieldOption>(allFieldOptionIds)
+                                       .Where(fo => fo != null)
+                                       .ToDictionary(fo => fo.Id)
+                            : new Dictionary<int, FieldOption>();
+
+                        templateFields.ForEach((tf) =>
                         {
                             var fieldDTO = Map<EmailTemplateFieldDTO>(tf);
 
                             if (tf.FieldOptionsIds != null && tf.FieldOptionsIds.Count > 0)
                             {
-                                var fieldOptions = dbSession.Load<FieldOption>(tf.FieldOptionsIds.Cast<ValueType>())
-                                                                 .ToList();
+                                var fieldOptions = tf.FieldOptionsIds
+                                    .Where(id => allFieldOptionsMap.ContainsKey(id))
+                                    .Select(id => allFieldOptionsMap[id])
+                                    .ToList();
 
                                 fieldDTO.FieldOptions = Map<List<FieldOptionDTO>>(fieldOptions);
                             }
 
                             emailTemplateDTO.Fields.Add(fieldDTO);
                         });
-
                     }
 
                     return emailTemplateDTO;

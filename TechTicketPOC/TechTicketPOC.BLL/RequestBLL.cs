@@ -15,7 +15,7 @@ namespace TechTicketPOC.BLL
         {
             var requests = RequestDAL.GetRequests(divisionId);
 
-            if (requests == null) return null;
+            if (requests == null) return new List<RequestDTO>();
 
             return Map<List<RequestDTO>>(requests);
         }
