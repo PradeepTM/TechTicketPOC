@@ -13,22 +13,13 @@ namespace TechTicketPOC.Common
 
         public static void Set<T>(string key, T value)
         {
-
-            if (Current.Session.Keys.Cast<string>().Contains(key))
-                Current.Session[key] = value;
-            else
-                Current.Session.Add(key, value);
-
+            Current.Session[key] = value;
         }
 
         public static T Get<T>(string key)
         {
-
-            if (Current.Session.Keys.Cast<string>().Contains(key))
-                return (T)Current.Session[key];
-            else
-                return default(T);
-
+            var value = Current.Session[key];
+            return value != null ? (T)value : default(T);
         }
 
     }
