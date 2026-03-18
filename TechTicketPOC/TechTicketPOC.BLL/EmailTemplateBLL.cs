@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechTicketPOC.DAL;
+using System;
+using TechTicketPOC.BLL.Interfaces;
 using TechTicketPOC.Entities;
-using static AutoMapper.Mapper;
 
 namespace TechTicketPOC.BLL
 {
     public class EmailTemplateBLL
     {
-        public EmailTemplateDTO GetEmailTemplate(int requestId)
+        private readonly IEmailTemplateRepository _repository;
+
+        public EmailTemplateBLL(IEmailTemplateRepository repository)
         {
-            return EmailTemplateDAL.GetEmailTemplate(requestId);
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        }
+
+        public EmailTemplateDTO? GetEmailTemplate(int requestId)
+        {
+            return _repository.GetEmailTemplate(requestId);
         }
     }
 }
+
