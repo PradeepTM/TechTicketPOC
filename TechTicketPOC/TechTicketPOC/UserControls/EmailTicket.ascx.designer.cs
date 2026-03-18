@@ -146,5 +146,23 @@ namespace TechTicketPOC.UserControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.StatusBar sbButtons;
+        
+        /// <summary>
+        /// wndEmailPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window wndEmailPreview;
+        
+        /// <summary>
+        /// pnlEmailPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel pnlEmailPreview;
     }
 }

@@ -86,8 +86,8 @@ namespace TechTicketPOC.UserControls
             {
                 var requestId = RequestId.Value;
                 var emailTemplate = Get<EmailTemplateDTO>(string.Format(EMAIL_TEMPLATE_BY_REQUEST, requestId));
-                List<Tuple<string, string>> emailData = GetData(requestId, emailTemplate);
-                DisplayEmailPreview(emailData, emailTemplate);
+                var fieldValues = GetData(emailTemplate);
+                DisplayEmailPreview(fieldValues, emailTemplate);
             }
 
         }
@@ -123,19 +123,17 @@ namespace TechTicketPOC.UserControls
             strDivsion.DataBind();
         }
 
-        private void DisplayEmailPreview(List<Tuple<string, string>> emailData, EmailTemplateDTO emailTemplate)
+        private void DisplayEmailPreview(Dictionary<string, string> fieldValues, EmailTemplateDTO emailTemplate)
         {
-            if (emailData.IsCollectionValid())
-            {
-                var message = $"<b>To:</b> {emailTemplate.To.Aggregate((first, sec) => string.Format("{0}; {1}", first, sec))}<br>";
-                message += $"<b>CC:</b> <br>";
-                message += $"<b>BCC:</b> <br><br>";
-                message += $"<b>Subject:</b> {GetEmailSubject(emailTemplate)}<br><br>";
-                message += $"<b>Body:</b> <br>";
-                message += string.Join("<br>", emailData.Select(d => $"{d.Item1}:    {d.Item2}"));
-                message = $"<br>{message}<br><br>";
-                X.Msg.Alert("Email preview", message).Show();
-            }
+            if (fieldValues == null || fieldValues.Count == 0)
+                return;
+
+            var subject = GetEmailSubject(emailTemplate);
+            var previewHtml = new EmailTemplateBLL().BuildEmailPreviewHtml(emailTemplate, subject, fieldValues);
+
+            pnlEmailPreview.Html = previewHtml;
+            pnlEmailPreview.Update();
+            wndEmailPreview.Show();
         }
 
         private void GenerateEmailTemplate(int requestId)
@@ -273,48 +271,43 @@ namespace TechTicketPOC.UserControls
 
         }
 
-        private List<Tuple<string, string>> GetData(int requestId, EmailTemplateDTO emailTemplate)
+        /// <summary>
+        /// Collects user-entered values from the dynamic form controls.
+        /// Returns a dictionary keyed by FieldName (matching {{FieldName}} placeholders
+        /// in the stored email template body).
+        /// </summary>
+        private Dictionary<string, string> GetData(EmailTemplateDTO emailTemplate)
         {
-            //var controls = new List<Control>();
-            //var leftPanelCtrls = pnlLeft.ContentControls.Cast<Control>();
-
-            //if (leftPanelCtrls.Any())
-            //    controls.AddRange(leftPanelCtrls);
-
-            //var rightPanelCtrls = pnlRight.ContentControls.Cast<Control>();
-
-            //if (rightPanelCtrls.Any())
-            //    controls.AddRange(rightPanelCtrls);
-
-
-
             if (emailTemplate.IsNull() || !emailTemplate.Fields.IsCollectionValid())
-                return new List<Tuple<string, string>>();
+                return new Dictionary<string, string>();
 
-            var data = new List<Tuple<string, string>>();
+            var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-            data.AddRange(emailTemplate.Fields.Select((field) =>
+            foreach (var field in emailTemplate.Fields)
             {
+                string value = string.Empty;
 
                 if (field.FieldType == TEXT_BOX)
-                    return Tuple.Create(field.DisplayName, X.GetCmp<TextField>(field.FieldName).Text);
+                {
+                    value = X.GetCmp<TextField>(field.FieldName).Text ?? string.Empty;
+                }
                 else if (field.FieldType == DROP_DOWN)
                 {
-                    var selectedValue = X.GetCmp<ComboBox>(field.FieldName).SelectedItem.Value;
-
-                    if (!string.IsNullOrEmpty(selectedValue) && !selectedValue.StartsWith("Select ", StringComparison.InvariantCultureIgnoreCase))
-                        return Tuple.Create(field.DisplayName, selectedValue);
+                    var selected = X.GetCmp<ComboBox>(field.FieldName).SelectedItem.Value;
+                    if (!string.IsNullOrEmpty(selected) &&
+                        !selected.StartsWith("Select ", StringComparison.InvariantCultureIgnoreCase))
+                        value = selected;
                 }
                 else if (field.FieldType == CHECK_BOX)
                 {
-                    return Tuple.Create(field.DisplayName, X.GetCmp<Checkbox>(field.FieldName).Checked ? "Yes" : "No");
+                    value = X.GetCmp<Checkbox>(field.FieldName).Checked ? "Yes" : "No";
                 }
 
-                return Tuple.Create(field.DisplayName, string.Empty);
-            })
-            .ToList());
+                data[field.FieldName] = value;
+            }
 
-            data.Add(Tuple.Create("Attachment", fuAttachments.HasFile ? fuAttachments.FileName : string.Empty));
+            data["Attachment"] = fuAttachments.HasFile ? fuAttachments.FileName : string.Empty;
+
             return data;
         }
 
