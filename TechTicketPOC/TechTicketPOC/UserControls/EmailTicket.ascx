@@ -11,6 +11,37 @@
 
 <ext:ResourceManager runat="server"></ext:ResourceManager>
 
+<%-- Email preview window (shown after clicking the Email button) --%>
+<ext:Window ID="wndEmailPreview"
+    runat="server"
+    IDMode="Static"
+    Title="Email Preview"
+    Width="700"
+    Height="520"
+    Hidden="true"
+    Modal="true"
+    Resizable="true"
+    AutoScroll="true"
+    BodyPadding="10"
+    Layout="Fit">
+    <Items>
+        <ext:Panel ID="pnlEmailPreview"
+            runat="server"
+            IDMode="Static"
+            Border="false"
+            AutoScroll="true"
+            BodyPadding="5">
+        </ext:Panel>
+    </Items>
+    <Buttons>
+        <ext:Button runat="server" Text="Close" Icon="Cancel">
+            <Listeners>
+                <Click Handler="#{wndEmailPreview}.hide();" />
+            </Listeners>
+        </ext:Button>
+    </Buttons>
+</ext:Window>
+
 <ext:Viewport ID="emailTicketWindow" runat="server" Layout="BorderLayout" Padding="10" BodyPadding="5">
     <Items>
         <ext:FormPanel

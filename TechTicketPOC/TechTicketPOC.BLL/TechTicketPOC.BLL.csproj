@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="RequestBLL.cs" />
     <Compile Include="EmailTemplateBLL.cs" />
+    <Compile Include="EmailTemplateBuilder.cs" />
     <Compile Include="DivisionBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
