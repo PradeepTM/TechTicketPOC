@@ -1,26 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using TechTicketPOC.BLL.Interfaces;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TechTicketPOC.DAL;
 using TechTicketPOC.Entities;
+using static AutoMapper.Mapper;
 
 namespace TechTicketPOC.BLL
 {
     public class DivisionBLL
     {
-        private readonly IDivisionRepository _repository;
-
-        public DivisionBLL(IDivisionRepository repository)
+        public List<DivisionDTO> GetDivisions()
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
-
-        public List<DivisionDTO>? GetDivisions()
-        {
-            var divisions = _repository.GetDivisions();
+            var divisions = DivisionDAL.GetDivisions();
 
             if (divisions == null) return null;
 
-            return divisions;
+            return Map<List<DivisionDTO>>(divisions);
         }
     }
 }
