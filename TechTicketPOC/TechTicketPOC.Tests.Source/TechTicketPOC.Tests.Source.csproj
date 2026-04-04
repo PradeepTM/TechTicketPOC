@@ -1,0 +1,48 @@
+<!--
+  TechTicketPOC.Tests.Source
+  ===========================
+  This project exists only to support the TechTicketPOC.Tests test runner.
+  
+  It is NOT part of the main application build. The main application uses
+  TechTicketPOC.Common and TechTicketPOC.Entities which target .NET Framework 4.5
+  (see their corresponding .csproj files).
+  
+  Because .NET Framework 4.5 assemblies cannot be directly referenced by a .NET 8
+  test runner on Linux/cross-platform, this thin shim recompiles the pure-C# source
+  files from Common and Entities targeting net8.0. This enables coverlet to measure
+  code coverage properly via project references.
+  
+  Files that depend on .NET Framework-only APIs (e.g. SessionWrapper uses System.Web,
+  BLL classes use the RavenDB DAL) are intentionally excluded.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>TechTicketPOC.Tests.Source</AssemblyName>
+    <RootNamespace>TechTicketPOC</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- TechTicketPOC.Common: pure-C# helpers (no System.Web dependency) -->
+  <ItemGroup>
+    <Compile Include="..\TechTicketPOC.Common\Constants\SessionKeys.cs" />
+    <Compile Include="..\TechTicketPOC.Common\Extensions\ObjectExtensions.cs" />
+    <Compile Include="..\TechTicketPOC.Common\Extensions\IEnumerableExtensions.cs" />
+    <!-- SessionWrapper.cs excluded: uses System.Web.HttpContext (net45-only) -->
+  </ItemGroup>
+
+  <!-- TechTicketPOC.Entities: plain DTO/interface files, no framework-specific deps -->
+  <ItemGroup>
+    <Compile Include="..\TechTicketPOC.Entities\Constants\FieldDataType.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\DivisionDTO.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\EmailTemplateDTO.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\EmailTemplateFieldDTO.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\EmailTransctionLogDTO.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\FieldOptionDTO.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\IAuditable.cs" />
+    <Compile Include="..\TechTicketPOC.Entities\RequestDTO.cs" />
+    <!-- BLL files excluded: depend on DAL (RavenDB), which is net45-only -->
+  </ItemGroup>
+</Project>
